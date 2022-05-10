@@ -44,22 +44,22 @@ Stampo informazioni di connessione avenuta, l'indirizzo IP dell'ESP32 assegnato 
 Per il momento simuliamo i dati che dovrebbero acquisire i tre sensori di pressione, temperatura, umidità, carica residua della batteria di alimentazione
 
 
-    float humidity = rand(10,90);
-    float temperature = rand(10,30);
-    float pressure = rand(950,1100);
+    float humidity = random(10,90);
+    float temperature = random(10,30);
+    float pressure = random(950,1100);
     
 In realtà in ogni ciclo di misura dovrei acquisire l'informazione dai sensori di monitoraggio collegati all'esp32. Si stabilisce una connessione con il server:
     
  
    
 
-      http.begin("http://192.168.1.149/esp_get.php");
+      http.begin("http://192.168.71.174/esp_get.php");
 
       http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
  Si inseriscono i dati che si vogliono inviare secondo la notazione nome=valore separati dall'ampersand &:
   
-      int httpResponseCode = http.POST("&temp= string(temp)&humidity=string(humidity)&probe=string(pressure)&charge=5&device=1");
+      int httpResponseCode = http.POST("&temp="+String(temp)+"&humidity="+String(humidity)+"&probe="+String(pressure)+"&charge=5&device=1");
       
 Si controlla poi il codice di risposta del server che dovrebbe essere 200 (ok):
 
